@@ -4,9 +4,9 @@ class Api::ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
-
-    render json: @articles
+      @articles = Article.where(is_private: false).or(Article.where(user_id: current_user.id))
+      render json: @articles
+    
   end
 
   # GET /articles/1
@@ -56,6 +56,6 @@ class Api::ArticlesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def article_params
-      params.require(:article).permit(:title, :content, :user_id)
+      params.require(:article).permit(:title, :content, :user_id, :is_private)
     end
 end
