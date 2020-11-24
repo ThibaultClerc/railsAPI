@@ -20,7 +20,7 @@ class Api::ArticlesController < ApplicationController
     @article.user_id = current_user.id
 
     if @article.save
-      render json: @article, status: :created, location: @article
+      render json: @article, status: :created
     else
       render json: @article.errors, status: :unprocessable_entity
     end
